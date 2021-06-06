@@ -16,13 +16,14 @@ var trick_color = Color(3,3,3,1)
 
 # Nodes
 onready var jump_skin = $JumpSkin
-onready var angle_skin = $JumpSkin/Tricks/IdleSkin/DamageSkin/AngleSkin
-onready var damage_skin = $JumpSkin/Tricks/IdleSkin/DamageSkin
-onready var trick_skin = $JumpSkin/Tricks
-onready var sprite = $JumpSkin/Tricks/IdleSkin/DamageSkin/AngleSkin/YetiSprite
+onready var angle_skin = $JumpSkin/IdleSkin/DamageSkin/AngleSkin
+onready var damage_skin = $JumpSkin/IdleSkin/DamageSkin
+onready var trick_skin = $JumpSkin/IdleSkin/DamageSkin/AngleSkin/TricksFix/Tricks
+onready var trick_fix = $JumpSkin/IdleSkin/DamageSkin/AngleSkin/TricksFix
+onready var sprite = $JumpSkin/IdleSkin/DamageSkin/AngleSkin/TricksFix/Tricks/YetiSprite
 
 # Areas
-onready var damage_area = $JumpSkin/Tricks/IdleSkin/DamageSkin/AngleSkin/DamageArea
+onready var damage_area = $JumpSkin/IdleSkin/DamageSkin/AngleSkin/TricksFix/Tricks/DamageArea
 
 # Players
 onready var damage_player = $Players/DamagePlayer
@@ -223,7 +224,7 @@ func trail_effect():
 	new_trail.get_node("Skin").rotation_degrees = sprite.global_rotation_degrees - game.slope 
 	new_trail.get_node("Skin/YetiSprite").frame = sprite.frame
 	new_trail.get_node("Skin/YetiSprite").stop()
-	new_trail.position = position + jump_skin.position
+	new_trail.position = position + jump_skin.position + trick_fix.position
 	trails.add_child(new_trail)
 	new_trail.owner = trails
 
@@ -237,7 +238,7 @@ func color_correct():
 
 func trick_complete():
 	trick_completed = true
-	trick_skin.modulate = trick_color
+	#trick_skin.modulate = trick_color
 
 func spawn_snow_trail():
 	if on_floor:

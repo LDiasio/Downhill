@@ -14,7 +14,6 @@ animations = [ {
 } ]
 
 [node name="YetiSprite" type="AnimatedSprite"]
-position = Vector2( -1, -16 )
 frames = SubResource( 1 )
 frame = 3
 playing = true

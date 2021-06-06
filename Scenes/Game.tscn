@@ -39,11 +39,9 @@ __meta__ = {
 }
 
 [node name="SnowTrails" type="Node2D" parent="Bodies"]
-scale = Vector2( 1, 1 )
 
 [node name="Cracks" type="Node2D" parent="Bodies"]
 rotation = 2.98023e-08
-scale = Vector2( 1, 1 )
 
 [node name="Shadows" type="Node2D" parent="Bodies"]
 rotation = 1.49012e-08
@@ -52,7 +50,6 @@ rotation = 1.49012e-08
 
 [node name="Flags" type="Node2D" parent="Bodies"]
 rotation = 2.98023e-08
-scale = Vector2( 1, 1 )
 
 [node name="Trails" type="Node2D" parent="Bodies"]
 
