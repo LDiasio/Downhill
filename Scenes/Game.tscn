@@ -1,0 +1,91 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/Yeti.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Game.gd" type="Script" id=2]
+[ext_resource path="res://YetiScenes/YetiShadow.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Camera.tscn" type="PackedScene" id=4]
+
+[sub_resource type="Curve" id=1]
+min_value = -20.0
+max_value = 20.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.110465, 3.81818 ), 0.0, 0.0, 0, 0, Vector2( 0.290698, -2 ), 0.0, 0.0, 0, 0, Vector2( 0.401163, 2 ), 0.0, 0.0, 0, 0, Vector2( 0.598837, -2 ), 0.0, 0.0, 0, 0, Vector2( 0.802326, 3.81818 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[node name="Game" type="Node"]
+script = ExtResource( 2 )
+
+[node name="Background" type="CanvasLayer" parent="."]
+
+[node name="Sky" type="ParallaxBackground" parent="Background"]
+
+[node name="Sky" type="ColorRect" parent="Background/Sky"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.388235, 0.607843, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bodies" type="Node2D" parent="."]
+position = Vector2( -3.57628e-07, 24 )
+rotation = 0.174533
+
+[node name="ColorRect" type="ColorRect" parent="Bodies"]
+margin_left = -160.0
+margin_right = 480.0
+margin_bottom = 360.0
+color = Color( 0.796078, 0.858824, 0.988235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SnowTrails" type="Node2D" parent="Bodies"]
+scale = Vector2( 1, 1 )
+
+[node name="Cracks" type="Node2D" parent="Bodies"]
+rotation = 2.98023e-08
+scale = Vector2( 1, 1 )
+
+[node name="Shadows" type="Node2D" parent="Bodies"]
+rotation = 1.49012e-08
+
+[node name="YetiShadow" parent="Bodies/Shadows" instance=ExtResource( 3 )]
+
+[node name="Flags" type="Node2D" parent="Bodies"]
+rotation = 2.98023e-08
+scale = Vector2( 1, 1 )
+
+[node name="Trails" type="Node2D" parent="Bodies"]
+
+[node name="YSort" type="YSort" parent="Bodies"]
+rotation = 1.49012e-08
+
+[node name="Yeti" parent="Bodies/YSort" instance=ExtResource( 1 )]
+position = Vector2( 48, 90 )
+
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="SpawnObstacleTimer" type="Timer" parent="Timers"]
+autostart = true
+
+[node name="Snow" type="CanvasLayer" parent="."]
+
+[node name="Snowflakes" type="CPUParticles2D" parent="Snow"]
+position = Vector2( 160, -57 )
+amount = 320
+lifetime = 5.0
+preprocess = 5.0
+randomness = 1.0
+emission_shape = 2
+emission_rect_extents = Vector2( 320, 32 )
+direction = Vector2( -1, 1 )
+gravity = Vector2( 0, 0 )
+initial_velocity = 96.0
+angular_velocity = 1.0
+angular_velocity_random = 1.0
+angular_velocity_curve = SubResource( 1 )
+angle = 45.0
+
+[node name="Camera" parent="." instance=ExtResource( 4 )]
+position = Vector2( 160, 90 )
+
+[connection signal="timeout" from="Timers/SpawnObstacleTimer" to="." method="_on_SpawnObstacleTimer_timeout"]

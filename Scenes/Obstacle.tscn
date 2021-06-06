@@ -1,0 +1,79 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Sprites/Rock/Rock2.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Obstacle.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/Rock/Rock1.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Tree/Tree1.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Snowman/Snowman2.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Snowman/Snowman1.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Tree/Tree2.png" type="Texture" id=7]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": false,
+"name": "Tree",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": false,
+"name": "Rock",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": false,
+"name": "Snowman2",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": false,
+"name": "Rock2",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": false,
+"name": "Tree2",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": false,
+"name": "Snowman",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 8, 3 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 12, 12 )
+
+[node name="Obstacle" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Skin1" type="Node2D" parent="."]
+
+[node name="Skin2" type="Node2D" parent="Skin1"]
+
+[node name="Skin3" type="Node2D" parent="Skin1/Skin2"]
+
+[node name="ObstacleSprite" type="AnimatedSprite" parent="Skin1/Skin2/Skin3"]
+position = Vector2( 0, -7 )
+frames = SubResource( 1 )
+animation = "Tree"
+
+[node name="DamageArea" type="Area2D" parent="Skin1/Skin2/Skin3" groups=[
+"obstacles",
+]]
+collision_layer = 2
+collision_mask = 0
+
+[node name="DamageCollision" type="CollisionShape2D" parent="Skin1/Skin2/Skin3/DamageArea"]
+position = Vector2( 0, -2 )
+shape = SubResource( 3 )
+
+[node name="ObstacleArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObstacleArea"]
+visible = false
+position = Vector2( 0, -12 )
+shape = SubResource( 2 )
