@@ -40,7 +40,8 @@ func spawn_obstacle():
 	flags.add_child(new_flag)
 	new_flag.owner = flags
 	
+	
 	if global_speed < 250:
 		global_speed *= 1.01
 		obstacles_timer.wait_time *= 0.99
-	
+		
